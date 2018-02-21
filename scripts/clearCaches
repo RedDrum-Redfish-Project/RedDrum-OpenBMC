@@ -1,0 +1,12 @@
+# remove python caches
+CWD=`pwd`
+ECWD=$CWD/..
+rm -r -f $ECWD/__pycache__
+
+rm -r -f $ECWD/reddrum_openbmc/__pycache__
+rm -r -f $ECWD/../RedDrum-Frontend/reddrum_frontend/__pycache__
+
+# remove Local RedfishService Database caches under RedfishService: FlaskApp
+DBDIR="$ECWD/isLocalData"
+rm -R -f ${DBDIR}
+

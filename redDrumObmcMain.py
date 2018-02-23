@@ -114,13 +114,23 @@ def redDrumMain(rdHost="127.0.0.1", rdPort=5001, isLocal=False, debug=False, rdS
     #
 
     # ***********************************
-    # *** EDIT THIS TO PUT THE " RedDrum-Frontend " package in the Python Path:
-    # ******** for now, we will add a path to ../RedDrum-Frontend  
+    # *** YOU MUST HAVE THE "reddrum_frontend" package from  RedDrum-Frontend in your Python Path:
     cwd=os.getcwd()
-    defaultFrontendPath=os.path.abspath(os.path.join(cwd,"..","RedDrum-Frontend"))
-    sys.path.append(defaultFrontendPath)
+    # reddrum_frontend should be in the python path
+    # see RedDrum-Frontend README.md for how to install it so that it shows up in the python path under site packages
+    #   for development, clone the Frontend and import with with -e option to allow editing 
+    #     clone https://github.com/RedDrum-Redfish-Project/RedDrum-Frontend
+    #     pip install -e ./RedDrum-Frontend
+    #   If no need to edit the Frontend code--just install the frontend into sitepackages
+    #     pip install git+https://github.com/RedDrum-Redfish-Project/RedDrum-Frontend.git
+    #
+    # to hard code the python-path to a dev RedDrum-Frontend
+    #     defaultFrontendPath=os.path.abspath(os.path.join(cwd,"---joint path over to the repo---","RedDrum-Frontend"))
+    #     sys.path.append(defaultFrontendPath) # add this to the path
+    #     from reddrum_frontend import RdRootData
+    #
     # *** end create path to the Frontend
-    # ***********************************
+    # **************************************
 
     # now import the FrontEnd
     from reddrum_frontend import RdRootData   # import the RedDrum Root Data Structure and logMsg Method
@@ -128,7 +138,8 @@ def redDrumMain(rdHost="127.0.0.1", rdPort=5001, isLocal=False, debug=False, rdS
 
     # now calculate the directory path to the FrontEnd Package Directory which has /reddrum_frontend 
     # this works even if the Frontend package above was put in site-packages
-    rdr.frontEndDirPath=os.path.abspath(os.path.join(os.path.dirname( inspect.getfile(RdRootData)), ".."))
+    rdr.frontEndPkgPath=os.path.dirname( inspect.getfile(RdRootData)) # return the path to reddrum_frontend
+    rdr.frontEndDirPath=os.path.abspath(os.path.join(rdr.frontEndPkgPath, ".."))
     #print("EEEEEEEEEEEEEEEE DIR: frontend dir: {}".format(rdr.frontEndDirPath))
 
     # initialize root data with passed-in args
@@ -149,8 +160,13 @@ def redDrumMain(rdHost="127.0.0.1", rdPort=5001, isLocal=False, debug=False, rdS
     # if you want to create your own, copy the front-end of the RdLogger code and then import your own
     # if you don't set rdr.logger=RdLogger() or your custom logger, then messages are not logged
     loggerName="None"
-    if rdr.isLocal is not True:     
-        from RedfishService import RdLogger         # import the default RedDrum logger
+
+    # set a property to indicate whether to startup a syslog logger for RedDrum
+    # if startObmcLogger is True, it will try to create a logger,
+    startObmcLogger=False     # **** if False, we wont try to start a logger with OpenBMC
+    
+    if rdr.isLocal is not True and startObmcLogger is True:     
+        from reddrum_frontend import RdLogger         # import the default RedDrum logger
         rdr.rdLogger = RdLogger(rdr.rdServiceName)   # dflt rdLogger=None
         loggerName="RdLogger"
 

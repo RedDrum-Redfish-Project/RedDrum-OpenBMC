@@ -1,5 +1,0 @@
-#!/bin/bash
-./clearCaches
-cd ..
-python3.4 redDrumMain.py -L 
-

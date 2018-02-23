@@ -1,5 +1,5 @@
 #!/bin/bash
 ./clearCaches
 cd ..
-python3.4 redDrumObmcMain.py -L 
+python3 redDrumObmcMain.py 
 

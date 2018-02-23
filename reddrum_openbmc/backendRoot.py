@@ -6,6 +6,7 @@
 # Backend root class for OpenBMC
 import os
 import json
+import inspect
 from .chassisBackend   import RdChassisBackend
 from .managersBackend  import RdManagersBackend
 from .systemsBackend   import RdSystemsBackend
@@ -34,18 +35,37 @@ class RdBackendRoot():
         self.backendStatus=1
         return(0)
 
+
     def startup(self,rdr):
         # set the data paths for OpenBMC 
         rdSvcPath=os.getcwd()
-        rdr.baseDataPath=os.path.join(rdSvcPath, "reddrum_frontend", "Data")
+
+        #rdr.baseDataPath=os.path.join(rdSvcPath, "reddrum_frontend", "Data")
+        # note:  rdr.frontEndDirPath is the path to  reddrum_frontend
+        rdr.baseDataPath=os.path.join(rdr.frontEndPkgPath,"Data")
+        print("EEEEEEEE: baseDataPath: {}".format(rdr.baseDataPath))
 
         # xg44 FIX final paths for OpenBMC /var and /etc...
-        rdr.varDataPath="/var/www/rf"
-        rdr.RedDrumConfPath=os.path.join(rdSvcPath, "RedDrum.conf" )
-        rdr.schemasPath = os.path.join(rdSvcPath, "schemas")
+        rdr.varDataPath=os.path.join("/var", "www", "rf")
+        print("EEEEEEEE: varDataPath: {}".format(rdr.varDataPath))
+
+        # if we have a RedDrum.conf file in etc/ use it. otherwise use the default
+        #rdr.RedDrumConfPath=os.path.join(rdSvcPath, "RedDrum.conf" )
+        redDrumConfPathEtc=os.path.join("/etc",  "RedDrum.conf" )
+        redDrumConfPathFrontend=os.path.join(rdr.frontEndPkgPath, "RedDrum.conf")
+        if os.path.isfile(redDrumConfPathEtc):
+            rdr.RedDrumConfPath=redDrumConfPathEtc
+        else:
+            rdr.RedDrumConfPath=redDrumConfPathFrontend
+        print("EEEEEEEE: RedDrumConfPath: {}".format(rdr.RedDrumConfPath))
+
+        # set path to schemas -- not used now
+        rdr.schemasPath = os.path.join(rdSvcPath, "schemas") #not used now
 
         # set path to bash scripts to run to get data from Linux
-        self.obmcScriptsPath = os.path.join(rdSvcPath, "reddrum_openbmc" )
+        #self.obmcScriptsPath = os.path.join(rdSvcPath, "reddrum_openbmc" )
+        self.obmcScriptsPath = os.path.dirname( inspect.getfile(RdBackendRoot))
+        print("EEEEEEEE: obmcScriptsPath: {}".format(self.obmcScriptsPath))
 
         # not that syslog logging is enabled on OpenBMC by default unless -L (isLocal) option was specified
         # turn-on console messages also however

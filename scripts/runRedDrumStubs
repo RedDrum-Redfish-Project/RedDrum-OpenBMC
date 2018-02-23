@@ -1,5 +1,6 @@
 #!/bin/bash
 ./clearCaches
 cd ..
-python3.4 redDrumObmcMain.py -L --EnableBackendStubs
+#python3 redDrumObmcMain.py -L --EnableBackendStubs
+python3 redDrumObmcMain.py  --EnableBackendStubs
 

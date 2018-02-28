@@ -19,6 +19,7 @@ setup(name='RedDrum-OpenBMC',
       download_url='https://github.com/RedDrum-Redfish-Project/RedDrum-OpenBMC/archive/0.9.5.tar.gz',
       packages=['reddrum_openbmc'],
       scripts=['scripts/redDrumObmcMain'],
+      package_data={'reddrum_openbmc': ['getObmcIpInfo.sh','getObmcProtocolInfo.sh'] },
       install_requires=[
           'RedDrum-Frontend==0.9.5', # the common RedDrum Frontend code that has dependency on Flask
           'passlib==1.7.1',          # used by Frontend

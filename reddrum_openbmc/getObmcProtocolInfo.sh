@@ -6,7 +6,8 @@
 debug="$1"
 
 # get the route info and extract the devicename and gateway from the route info
-netstatinfo=`netstat -tlp`
+#netstatinfo=`netstat -tlp`
+netstatinfo=`netstat -tl`
 mysshPort=`echo "${netstatinfo}" | awk '/ssh/ {print $4; exit }'`
 myhttpPort=`echo "${netstatinfo}" | awk '/http/ {print $4; exit }'`
 myhttpsPort=`echo "${netstatinfo}" | awk '/https/ {print $4; exit }'`

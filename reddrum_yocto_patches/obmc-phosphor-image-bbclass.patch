@@ -1,0 +1,39 @@
+This patch adds RedDrum-Frontend, RedDrum-OpenBMC and RedDrum-Httpd-Configs recipes to openbmc build. 
+The original file being patched can be found at 
+https://github.com/openbmc/openbmc/blob/master/meta-phosphor/classes/obmc-phosphor-image.bbclass
+
+diff --git a/openbmc/meta-phosphor/classes/obmc-phosphor-image.bbclass b/openbmc/meta-phosphor/classes/obmc-phosphor-image.bbclass
+index 5e90ce8..009299a 100644
+--- a/openbmc/meta-phosphor/classes/obmc-phosphor-image.bbclass
++++ b/openbmc/meta-phosphor/classes/obmc-phosphor-image.bbclass
+@@ -94,15 +94,28 @@ CORE_IMAGE_EXTRA_INSTALL_append = " bash \
+         rsync \
+         rng-tools \
+         lrzsz \
++        python3-RedDrum-Frontend \
++        python3-RedDrum-OpenBMC \
++        python3-RedDrum-Httpd-Configs \
+         "
+ 
+-OBMC_IMAGE_EXTRA_INSTALL ?= ""
++OBMC_IMAGE_EXTRA_INSTALL ?= "python3-flask python3-json python3-netclient python3-misc python3-setuptools python3-dbus python3-passlib python3-pytz glibc-utils localedef apache2"
+ 
+ do_image_complete[depends] += "obmc-phosphor-debug-tarball:do_image_complete"
+ 
++mv_python_scripts() {
++        srcdir=${IMAGE_ROOTFS}/usr/lib/python2.7/site-packages/obmc
++        destdir=${IMAGE_ROOTFS}/usr/lib/python3.5/site-packages
++        echo "srcdir=$srcdir"
++        echo "destdir=$destdir"
++        mkdir -p $destdir
++        cp -a $srcdir $destdir
++        2to3 ${destdir}/obmc --no-diffs -nwo ${destdir}/obmc
++}
++
+ # The /etc/version file is misleading and not useful.  Remove it.
+ # Users should instead rely on /etc/os-release.
+ remove_etc_version() {
+         rm ${IMAGE_ROOTFS}${sysconfdir}/version
+ }
+-ROOTFS_POSTPROCESS_COMMAND += "remove_etc_version ; "
++ROOTFS_POSTPROCESS_COMMAND += "remove_etc_version ; mv_python_scripts ; "

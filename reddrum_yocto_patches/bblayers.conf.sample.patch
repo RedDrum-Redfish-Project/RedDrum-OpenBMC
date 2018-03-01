@@ -1,0 +1,24 @@
+This patch adds meta-webserver to openbmc builds. 
+The original file being patched can be found at 
+https://github.com/openbmc/openbmc/blob/master/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/conf/bblayers.conf.sample 
+
+diff --git a/openbmc/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/conf/bblayers.conf.sample b/openbmc/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/conf/bblayers.conf.sample
+index 8849634..fbe554f 100644
+--- a/openbmc/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/conf/bblayers.conf.sample
++++ b/openbmc/meta-openbmc-machines/meta-openpower/meta-ibm/meta-witherspoon/conf/bblayers.conf.sample
+@@ -12,6 +12,7 @@ BBLAYERS ?= " \
+   ##OEROOT##/import-layers/meta-openembedded/meta-networking \
+   ##OEROOT##/import-layers/meta-openembedded/meta-perl \
+   ##OEROOT##/import-layers/meta-openembedded/meta-python \
++  ##OEROOT##/import-layers/meta-openembedded/meta-webserver \
+   ##OEROOT##/import-layers/meta-virtualization \
+   ##OEROOT##/meta-phosphor \
+   ##OEROOT##/meta-openbmc-bsp/meta-aspeed \
+@@ -27,6 +28,7 @@ BBLAYERS_NON_REMOVABLE ?= " \
+   ##OEROOT##/import-layers/meta-openembedded/meta-networking \
+   ##OEROOT##/import-layers/meta-openembedded/meta-perl \
+   ##OEROOT##/import-layers/meta-openembedded/meta-python \
++  ##OEROOT##/import-layers/meta-openembedded/meta-webserver \
+   ##OEROOT##/import-layers/meta-virtualization \
+   ##OEROOT##/meta-phosphor \
+   ##OEROOT##/meta-openbmc-bsp/meta-aspeed \

@@ -129,7 +129,7 @@ Generating RSA private key, 2048 bit long modulus
 ....+++
 e is 65537 (0x10001)
 Signature ok
-subject=/C=US/ST=TX/L=Round Rock/O=Dell Inc./OU=ESI/CN=RackManager
+subject=/C=US/ST=TX/L=Round Rock/O=Dell Inc./OU=ESI/CN=OpenBMCx
 Getting Private key
 httpd config complete
 ```
@@ -138,6 +138,7 @@ httpd config complete
 ```
 root@witherspoon:~# python3 /usr/bin/redDrumObmcMain
 ```
+---
 ---
 ---
 ## How to Install the RedDrum-OpenBMC on Centos7.1+-- to test with BackendStubs enabled for Linux Testing

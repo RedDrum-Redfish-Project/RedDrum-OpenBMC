@@ -146,10 +146,10 @@ class RdOpenBmcDbusInterfaces():
             print("set chassis LED: {}".format(ledStateEnum))
             sys.stdout.flush()
         else:
-            if validHwLedStates == "Off":
-                self.ProcDbus.set_chassis_state_Off()
+            if ledStateEnum == "Off":
+                self.ProcDbus.deassert_chassis_ID_LED()
             else:
-                self.ProcDbus.set_chassis_state_On()
+                self.ProcDbus.assert_chassis_ID_LED()
         return(0)
 
     # set chassis  AssetTag from Dbus 

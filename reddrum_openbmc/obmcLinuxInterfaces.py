@@ -34,6 +34,9 @@ class RdOpenBmcLinuxInterfaces():
     #                                      that is stored in /etc/hosts (1st alias is fqdn)
     #    in linux, to store fqdn, you must thus edit /etc/hosts
     def getObmcNetworkProtocolInfo(self):
+        exitcode = 500
+        protoInfo={}
+        return(exitcode,protoInfo)
         scriptPath = os.path.join(self.rdr.backend.obmcScriptsPath, "getObmcProtocolInfo.sh")
         arg1 = "arg1" # current script doesn't require arg but showing here if we need to add
         arg2 = "arg2" # 
@@ -58,6 +61,9 @@ class RdOpenBmcLinuxInterfaces():
     # --------------------------------------------------
     # get Manager Ethernet settings, for previously discovered device eg device "Eth0"
     def getObmcIpInfo(self,device):
+        exitcode = 500
+        ipInfo={}
+        return(exitcode,ipInfo)
         scriptPath = os.path.join(self.rdr.backend.obmcScriptsPath, "getObmcIpInfo.sh")
         arg1 = device # the "device" Name to use in the response
         arg2 = "arg2" # 

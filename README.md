@@ -74,13 +74,19 @@ git clone git@github.com:RedDrum-Redfish-Project/RedDrum-OpenBMC.git
 ## Update the OpenBMC recipes ##
 * Update `passlib` recipe
 ```
-cp meta-openembedded/meta-python/recipes-devtools/python/python-passlib.inc openbmc/import-layers/meta-openembedded/meta-python/recipes-devtools/python/
-cp meta-openembedded/meta-python/recipes-devtools/python/python3-passlib_1.7.1.bb openbmc/import-layers/meta-openembedded/meta-python/recipes-devtools/python/
+cp meta-openembedded/meta-python/recipes-devtools/python/python-passlib.inc \
+openbmc/import-layers/meta-openembedded/meta-python/recipes-devtools/python/
+
+cp meta-openembedded/meta-python/recipes-devtools/python/python3-passlib_1.7.1.bb \
+openbmc/import-layers/meta-openembedded/meta-python/recipes-devtools/python/
 ```
 * Add `pytz` recipe
 ```
-cp meta-openembedded/meta-python/recipes-devtools/python/python-pytz.inc openbmc/import-layers/meta-openembedded/meta-python/recipes-devtools/python/
-cp meta-openembedded/meta-python/recipes-devtools/python/python3-pytz_2017.3.bb openbmc/import-layers/meta-openembedded/meta-python/recipes-devtools/python/
+cp meta-openembedded/meta-python/recipes-devtools/python/python-pytz.inc \
+openbmc/import-layers/meta-openembedded/meta-python/recipes-devtools/python/
+
+cp meta-openembedded/meta-python/recipes-devtools/python/python3-pytz_2018.3.bb \
+openbmc/import-layers/meta-openembedded/meta-python/recipes-devtools/python/
 ```
 * Add `redfish` Recipes
 ```

@@ -339,7 +339,10 @@ class ProcessDbus():
         """
         val = self.get_prop_for_interface(prop=lookupValues['CHASSIS_POWER_READING_VALUE'][PROPERTY_INDEX], Host=lookupValues['CHASSIS_POWER_READING_VALUE'][HOST_INDEX], interface=lookupValues['CHASSIS_POWER_READING_VALUE'][INTERFACE_INDEX], objpath=lookupValues['CHASSIS_POWER_READING_VALUE'][OBJPATH_INDEX])
         scale = self.get_prop_for_interface(prop=lookupValues['CHASSIS_POWER_READING_SCALE'][PROPERTY_INDEX], Host=lookupValues['CHASSIS_POWER_READING_SCALE'][HOST_INDEX], interface=lookupValues['CHASSIS_POWER_READING_SCALE'][INTERFACE_INDEX], objpath=lookupValues['CHASSIS_POWER_READING_SCALE'][OBJPATH_INDEX])
-        return int(val) * (10 ** int(scale))
+        if all(val_scale is not None for val_scale in [val, scale]):
+            return int(val) * (10 ** int(scale))
+        else:
+            return 0
     
     def get_chassis_Manuf(self):
         """

@@ -107,7 +107,7 @@ class ProcessDbus():
             return resp
         except Exception as e:
             print(e)
-            return
+            return {'MaxNumOfDIMMs': 0, 'MinNumOfDIMMs': 0, 'PresNumOfDIMMs': 0}
 
     def get_psu_nums(self):
         psu_num = 0
@@ -132,7 +132,7 @@ class ProcessDbus():
             return resp
         except Exception as e:
             print(e)
-            return
+            return {'MaxNumOfPSUs': 0, 'MinNumOfPSUs': 0,  'PSU0present': False, 'PSU1present': False}
 
     def get_cpu_nums(self):
         cpu_num = 0
@@ -155,7 +155,7 @@ class ProcessDbus():
             return resp
         except Exception as e:
             print(e)
-            return
+            return {'MaxNumOfCPUs': 0, 'MinNumOfCPUs': 0, 'PresNumOfCPUs': 0}
 
 
                     

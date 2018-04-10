@@ -9,7 +9,7 @@ import re
 import yaml
 
 BMC_SUBPATH = '/xyz/openbmc_project'
-CONFIG_YML = 'config.yml'
+CONFIG_YML = '/usr/share/RedDrum-Redfish/config.yml'
 
 HOST_INDEX = 0
 INTERFACE_INDEX = 1

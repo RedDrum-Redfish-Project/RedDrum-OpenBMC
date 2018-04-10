@@ -1,0 +1,107 @@
+BMC_STATE:
+    objname: xyz.openbmc_project.State.BMC
+    interface: xyz.openbmc_project.State.BMC
+    objpath: /xyz/openbmc_project/state/bmc0
+    property: CurrentBMCState
+
+BMC_UUID:
+    objname: 
+    interface: xyz.openbmc_project.Common.UUID
+    objpath: /xyz/openbmc_project/inventory
+    property: UUID
+
+RESET_BMC_STATE:
+    objname: xyz.openbmc_project.State.BMC
+    interface: xyz.openbmc_project.State.BMC
+    objpath: /xyz/openbmc_project/state/bmc0
+    property: RequestedBMCTransition
+
+CHASSIS_STATE:
+    objname: xyz.openbmc_project.State.Chassis
+    interface: xyz.openbmc_project.State.Chassis
+    objpath: /xyz/openbmc_project/state/chassis0
+    property: CurrentPowerState
+
+CHASSIS_RESET_STATE:
+    objname: xyz.openbmc_project.State.Chassis
+    interface: xyz.openbmc_project.State.Chassis
+    objpath: /xyz/openbmc_project/state/chassis0
+    property: RequestedPowerTransition
+
+HOST_STATE:
+    objname: xyz.openbmc_project.State.Host
+    interface: xyz.openbmc_project.State.Host
+    objpath: /xyz/openbmc_project/state/host0
+    property: CurrentHostState
+
+HOST_RESET_STATE:
+    objname: xyz.openbmc_project.State.Host
+    interface: xyz.openbmc_project.State.Host
+    objpath: /xyz/openbmc_project/state/host0
+    property: RequestedHostTransition
+
+CHASSIS_ASSET_TAG:
+    objname: 
+    interface: xyz.openbmc_project.Inventory.Decorator.AssetTag
+    objpath: /xyz/openbmc_project/inventory/system
+    property: AssetTag
+
+CHASSIS_ID_LED:
+    objname: xyz.openbmc_project.LED.GroupManager
+    interface: xyz.openbmc_project.Led.Group
+    objpath: /xyz/openbmc_project/led/groups/enclosure_identify
+    property: Asserted
+
+CHASSIS_POWER_LIMIT:
+    objname: xyz.openbmc_project.Settings
+    interface: xyz.openbmc_project.Control.Power.Cap
+    objpath: /xyz/openbmc_project/control/host0/power_cap
+    property: PowerCap
+
+CHASSIS_POWER_READING_VALUE:
+    objname: 
+    interface: xyz.openbmc_project.Sensor.Value
+    objpath: /xyz/openbmc_project/sensors/power/total_power
+    property: Value
+
+CHASSIS_POWER_READING_SCALE:
+    objname: 
+    interface: xyz.openbmc_project.Sensor.Value 
+    objpath: /xyz/openbmc_project/sensors/power/total_power
+    property: Scale
+
+CHASSIS_MANUF:
+    objname: 
+    interface: xyz.openbmc_project.Inventory.Decorator.Asset
+    objpath: /xyz/openbmc_project/inventory/system/chassis/motherboard
+    property: Manufacturer
+
+CHASSIS_MODEL:
+    objname: 
+    interface: xyz.openbmc_project.Inventory.Decorator.Asset
+    objpath: /xyz/openbmc_project/inventory/system/chassis/motherboard
+    property: Model
+
+CHASSIS_SERIAL_NUM:
+    objname: 
+    interface: xyz.openbmc_project.Inventory.Decorator.Asset
+    objpath: /xyz/openbmc_project/inventory/system/chassis/motherboard
+    property: SerialNumber
+
+CHASSIS_PART_NUM:
+    objname: 
+    interface: xyz.openbmc_project.Inventory.Decorator.Asset
+    objpath: /xyz/openbmc_project/inventory/system/chassis/motherboard
+    property: PartNumber
+
+CHASSIS_DIMM_PRES:
+    objname: 
+    interface: xyz.openbmc_project.Inventory.Item
+    objpath: /xyz/openbmc_project/inventory/system/chassis/motherboard
+    property: Present
+
+CHASSIS_PSU_PRES:
+    objname: 
+    interface: xyz.openbmc_project.Inventory.Item
+    objpath: /xyz/openbmc_project/inventory/system/chassis
+    property: Present

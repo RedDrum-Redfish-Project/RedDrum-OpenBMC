@@ -9,7 +9,13 @@ SRC_URI = "git://github.com/RedDrum-Redfish-Project/RedDrum-OpenBMC"
 SRCREV = "${AUTOREV}"
 S="${WORKDIR}/git"
 
+do_install_append() {
+             install -d ${D}${datadir}/RedDrum-Redfish
+             install -m 0755 ${S}/reddrum_openbmc/config.yml ${D}${datadir}/RedDrum-Redfish
+}
+
 FILES_${PN} += "${datadir}/RedDrum"
+FILES_${PN} += "${datadir}/*"
 
 inherit setuptools3
 

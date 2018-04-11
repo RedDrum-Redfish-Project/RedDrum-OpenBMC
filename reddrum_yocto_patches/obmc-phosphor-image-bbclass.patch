@@ -16,7 +16,7 @@ index 5e90ce8..009299a 100644
          "
  
 -OBMC_IMAGE_EXTRA_INSTALL ?= ""
-+OBMC_IMAGE_EXTRA_INSTALL ?= "python3-flask python3-json python3-netclient python3-misc python3-setuptools python3-dbus python3-passlib python3-pytz glibc-utils localedef apache2"
++OBMC_IMAGE_EXTRA_INSTALL ?= "python3-flask python3-json python3-netclient python3-misc python3-setuptools python3-dbus python3-passlib python3-pytz python3-pyyaml glibc-utils localedef apache2"
  
  do_image_complete[depends] += "obmc-phosphor-debug-tarball:do_image_complete"
  

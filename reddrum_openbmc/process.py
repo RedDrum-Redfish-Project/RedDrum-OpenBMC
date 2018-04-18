@@ -250,7 +250,9 @@ class ProcessDbus():
         [(dbus.String(u'CurrentPowerState'), dbus.String(u'xyz.openbmc_project.State.Chassis.PowerState.Off', variant_level=1)),]
         [(dbus.String(u'CurrentPowerState'), dbus.String(u'xyz.openbmc_project.State.Chassis.PowerState.On', variant_level=1)),]
         """
-        return self.get_prop_for_interface(prop=self.lookupValues['CHASSIS_STATE'][PROPERTY_INDEX], Host=self.lookupValues['CHASSIS_STATE'][HOST_INDEX], interface=self.lookupValues['CHASSIS_STATE'][INTERFACE_INDEX], objpath=self.lookupValues['CHASSIS_STATE'][OBJPATH_INDEX])
+        ChassState = self.get_prop_for_interface(prop=self.lookupValues['CHASSIS_STATE'][PROPERTY_INDEX], Host=self.lookupValues['CHASSIS_STATE'][HOST_INDEX], interface=self.lookupValues['CHASSIS_STATE'][INTERFACE_INDEX], objpath=self.lookupValues['CHASSIS_STATE'][OBJPATH_INDEX])
+        data = ChassState.split('xyz.openbmc_project.State.Chassis.PowerState.')
+        return (data[1])
 
     def set_chassis_state(self, ResetState):
         """
@@ -288,7 +290,11 @@ class ProcessDbus():
         """
         [(dbus.String(u'Asserted'), dbus.Boolean(False, variant_level=1))]
         """
-        return self.get_prop_for_interface(prop=self.lookupValues['CHASSIS_ID_LED'][PROPERTY_INDEX], Host=self.lookupValues['CHASSIS_ID_LED'][HOST_INDEX], interface=self.lookupValues['CHASSIS_ID_LED'][INTERFACE_INDEX], objpath=self.lookupValues['CHASSIS_ID_LED'][OBJPATH_INDEX])
+        LEDState = self.get_prop_for_interface(prop=self.lookupValues['CHASSIS_ID_LED'][PROPERTY_INDEX], Host=self.lookupValues['CHASSIS_ID_LED'][HOST_INDEX], interface=self.lookupValues['CHASSIS_ID_LED'][INTERFACE_INDEX], objpath=self.lookupValues['CHASSIS_ID_LED'][OBJPATH_INDEX])
+        if LEDState == True:
+            return 'Blinking'
+        else:
+            return 'Off'
     
     def deassert_chassis_ID_LED(self):
         """

@@ -213,7 +213,8 @@ class RdOpenBmcDiscovery():
                                 "ConnectTypesSupported": self.staticCfg.commandShellConnectTypesSupported }
 
         resp["ActionsResetAllowableValues"]=["GracefulRestart","ForceRestart"]
-        resp["BaseNavigationProperties"]=["NetworkProtocol","EthernetInterfaces","LogServices"] # required in BaseServerProfile
+        #resp["BaseNavigationProperties"]=["NetworkProtocol","EthernetInterfaces","LogServices"] # required in BaseServerProfile
+        resp["BaseNavigationProperties"]=["NetworkProtocol","EthernetInterfaces"] # required in BaseServerProfile
 
         resp["GetDateTimeFromOS"]=True
         resp["GetServiceEntryPointUuidFrom"]="ServiceRoot"   # ServiceRoot | UUID 
@@ -344,7 +345,7 @@ class RdOpenBmcDiscovery():
         if "Board" in tempSensorInfo["Id"]:
             resp["Id"]["Board"]={}
             resp["Id"]["Board"]["Name"] = "Board Temp"
-            resp["Id"]["Board"]["PhysicalContext"] = "Board"
+            resp["Id"]["Board"]["PhysicalContext"] = "SystemBoard"
             resp["Id"]["Board"]["Volatile"] = [ "ReadingCelsius" ]
             resp["Id"]["Board"]["AddRelatedItems"] = ["System","Chassis"]
             resp["Id"]["Intake"]["Status"] =  {"State": "Enabled", "Health": "OK" }

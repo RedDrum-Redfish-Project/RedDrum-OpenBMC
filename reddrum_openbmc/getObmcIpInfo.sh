@@ -80,7 +80,7 @@ macraw=`cat  ${devPath}address`
 if [ "${macraw}" = "" ]; then
     mac="null"
 else
-    mac="\"null\""
+    mac="\"${macraw}\""
 fi
 duplex=`cat  ${devPath}duplex`       # full or half
 if [ "${duplex}" = "" ]; then

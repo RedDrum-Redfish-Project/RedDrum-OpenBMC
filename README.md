@@ -166,6 +166,10 @@ root@witherspoon:~# python3 /usr/bin/redDrumObmcMain
 ```
      cd  <your_path_to_Directory_Holding_RedDrumOpenBMC_Code>
      git clone http://github.com/RedDrum-Redfish-Project/RedDrum-Frontend  RedDrum-Frontend
+     # now use pip to install this into your local site-packages
+     cd ..
+     # now dir is at <your_path_to_Directory_Holding_RedDrumOpenBMC_Code>  
+     pip install -e ./RedDrum-Frontend
 ```
 
 * Install the RedDrum-OpenBMC code

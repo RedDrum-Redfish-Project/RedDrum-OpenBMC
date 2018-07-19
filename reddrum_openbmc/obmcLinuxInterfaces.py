@@ -36,7 +36,8 @@ class RdOpenBmcLinuxInterfaces():
     def getObmcNetworkProtocolInfo(self):
         exitcode = 500
         protoInfo={}
-        return(exitcode,protoInfo)
+        if self.rdr.enableBackendStubs is not True:
+            return(exitcode,ipInfo)
         scriptPath = os.path.join(self.rdr.backend.obmcScriptsPath, "getObmcProtocolInfo.sh")
         arg1 = "arg1" # current script doesn't require arg but showing here if we need to add
         arg2 = "arg2" # 
@@ -63,7 +64,8 @@ class RdOpenBmcLinuxInterfaces():
     def getObmcIpInfo(self,device):
         exitcode = 500
         ipInfo={}
-        return(exitcode,ipInfo)
+        if self.rdr.enableBackendStubs is not True:
+            return(exitcode,ipInfo)
         scriptPath = os.path.join(self.rdr.backend.obmcScriptsPath, "getObmcIpInfo.sh")
         arg1 = device # the "device" Name to use in the response
         arg2 = "arg2" # 
@@ -86,8 +88,7 @@ class RdOpenBmcLinuxInterfaces():
         #  }
         #  load to a json struct
         getObmcIpInfoOutputString = str(out, encoding='UTF-8')   # convert from bytes to utf8 string. 
-        print("EEEEEEEEEEE")
-        print(" ipinfo: {}".format(getObmcIpInfoOutputString))
+        print("DEBUG:  ipinfo: {}".format(getObmcIpInfoOutputString))
         backendGetIpInfo=json.loads(getObmcIpInfoOutputString )
 
 

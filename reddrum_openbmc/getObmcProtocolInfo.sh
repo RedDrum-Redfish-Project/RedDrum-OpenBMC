@@ -15,22 +15,22 @@ myeePort=`echo "${netstatinfo}" | awk '/ee/ {print $4; exit }'`
 myhostname=`hostname`
 myfqdn=`hostname -f`
 
-sshEnabled="False"
-httpEnabled="False"
-httpsEnabled="False"
-eeEnabled="False"
+sshEnabled="false"
+httpEnabled="false"
+httpsEnabled="false"
+eeEnabled="false"
 
 if [ "${mysshPort}" != "" ]; then
-    sshEnabled="True"
+    sshEnabled="true"
 fi
 if [ "${myhttpPort}" != "" ]; then
-    httpEnabled="True"
+    httpEnabled="true"
 fi
 if [ "${myhttpsPort}" != "" ]; then
-    httpsEnabled="True"
+    httpsEnabled="true"
 fi
 if [ "${myeePort}" != "" ]; then
-    eeEnabled="True"
+    eeEnabled="true"
 fi
 
 if [ "${debug}" == "debug" ]; then
@@ -48,9 +48,9 @@ if [ "${debug}" == "debug" ]; then
 fi
 
 echo "{"
-echo "    \"SSH\":   { \"ProtocolEnabled\": " "\"${sshEnabled}\" },"
-echo "    \"HTTP\":  { \"ProtocolEnabled\": " "\"${httpEnabled}\" },"
-echo "    \"HTTPS\": { \"ProtocolEnabled\": " "\"${httpsEnabled}\" },"
+echo "    \"SSH\":   { \"ProtocolEnabled\": " "${sshEnabled} },"
+echo "    \"HTTP\":  { \"ProtocolEnabled\": " "${httpEnabled} },"
+echo "    \"HTTPS\": { \"ProtocolEnabled\": " "${httpsEnabled} },"
 echo "    \"HostName\": " "\"${myhostname}\","
 echo "    \"FQDN\": " "\"${myfqdn}\""
 echo "}"

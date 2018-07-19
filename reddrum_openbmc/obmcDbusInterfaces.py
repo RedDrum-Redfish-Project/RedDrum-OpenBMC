@@ -31,7 +31,7 @@ class RdOpenBmcDbusInterfaces():
         resp=dict()
         # get the properties
         if( self.stub is True):
-            resp["FirmwareVersion"]="0.9.0x"   # a string indicating the obmc FW version
+            resp["FirmwareVersion"]="0.9.9"   # a string indicating the obmc FW version
         else:
             resp["FirmwareVersion"]=self.ProcDbus.get_bmc_fw_ver()   # a string indicating the obmc FW version
 
@@ -114,7 +114,7 @@ class RdOpenBmcDbusInterfaces():
     #        where <assetTag> is a string
     def getObmcAssetTag(self):
         if( self.stub is True):
-            resp="MyASSETTAGx"
+            resp="OCPLab1"
         else:
             resp=self.ProcDbus.get_chassis_asset_tag()
         return(resp)

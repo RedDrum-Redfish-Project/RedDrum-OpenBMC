@@ -15,7 +15,7 @@ class RdOpenBmcDbusInterfaces():
             from .process import ProcessDbus as PDbus
             self.ProcDbus = PDbus()
         else:
-            self.ledState="Offf"
+            self.ledState="Off"
             self.powerState="On"
             self.assetTag="APTS-OBMC-Stub"
             self.powerLimit=509

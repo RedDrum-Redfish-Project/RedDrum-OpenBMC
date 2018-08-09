@@ -2,6 +2,7 @@
 # Copyright Notice:
 #    Copyright 2018 Dell, Inc. All rights reserved.
 #    License: BSD License.  For full license text see link: https://github.com/RedDrum-Redfish-Project/RedDrum-OpenBMC/LICENSE.txt
+import sys
 
 class RdOpenBmcDbusInterfaces():
     def __init__(self,rdr):
@@ -13,7 +14,16 @@ class RdOpenBmcDbusInterfaces():
         if self.stub is False:
             from .process import ProcessDbus as PDbus
             self.ProcDbus = PDbus()
-
+        else:
+            self.ledState="Offf"
+            self.powerState="On"
+            self.assetTag="APTS-OBMC-Stub"
+            self.powerLimit=509
+            self.powerLimitException="LogEventOnly"
+            self.bootSourceOverrideEnabled    = "Once"
+            self.bootSourceOverrideTarget    = "Pxe"
+            self.bootSourceOverrideMode       = "Legacy"
+            self.uefiTargetBootSourceOverride = ""
     # --------------------------------------------------
     # --------------------------------------------------
     # Base Manager  Discovery and update APIs
@@ -103,7 +113,7 @@ class RdOpenBmcDbusInterfaces():
     #        implementation should support On, Off.    PoweringOn, PoweringOff is used only in special case
     def getObmcChassisPowerState(self):
         if( self.stub is True):
-            resp="On"
+            resp=self.powerState
         else:
             resp=self.ProcDbus.get_chassis_state()
         return(resp)
@@ -114,7 +124,7 @@ class RdOpenBmcDbusInterfaces():
     #        where <assetTag> is a string
     def getObmcAssetTag(self):
         if( self.stub is True):
-            resp="OCPLab1"
+            resp=self.assetTag
         else:
             resp=self.ProcDbus.get_chassis_asset_tag()
         return(resp)
@@ -127,7 +137,7 @@ class RdOpenBmcDbusInterfaces():
     #        implementation should support Off and can support both or just one of Lit and Blinking
     def getObmcChassisIndicatorLED(self):
         if( self.stub is True):
-            resp="Blinking"
+            resp=self.ledState
         else:
             resp=self.ProcDbus.get_chassis_ID_LED()
         return(resp)
@@ -145,6 +155,7 @@ class RdOpenBmcDbusInterfaces():
         if( self.stub is True):
             print("set chassis LED: {}".format(ledStateEnum))
             sys.stdout.flush()
+            self.ledState=ledStateEnum
         else:
             if ledStateEnum == "Off":
                 self.ProcDbus.deassert_chassis_ID_LED()
@@ -161,6 +172,7 @@ class RdOpenBmcDbusInterfaces():
         if( self.stub is True):
             print("set chassis AssetTag")
             sys.stdout.flush()
+            self.assetTag=assetTag
         else:
             self.ProcDbus.set_chassis_asset_tag(assetTag)
         return(0)
@@ -201,7 +213,7 @@ class RdOpenBmcDbusInterfaces():
     #        where <powerLimitInWatts> is integer in watts
     def getObmcPowerLimit(self):
         if( self.stub is True):
-            resp=459
+            resp=self.powerLimit
         else:
             resp=self.ProcDbus.get_chassis_power_limit()
         return(resp)
@@ -214,7 +226,7 @@ class RdOpenBmcDbusInterfaces():
     #                   for obmc, support NoAction or LogEventOnly 
     def getObmcPowerLimitException(self):
         if( self.stub is True):
-            resp="LogEventOnly"
+            resp=self.powerLimitException
         else:
             resp="LogEventOnly"  # xg44 need to complete integration
         return(resp)
@@ -230,11 +242,13 @@ class RdOpenBmcDbusInterfaces():
                 # turn-off power limiting *****
                 print("set Power Limit OFF")
                 sys.stdout.flush()
+                self.powerLimit=0
                 return(0)
             else:
                 # set the power limit to value <powerLimit> in watts
                 print(" setting PowerLimit to {} watts".format(powerLimit))
                 sys.stdout.flush()
+                self.powerLimit=powerLimit
                 return(0)
         else:
             if powerLimit is None:
@@ -255,8 +269,10 @@ class RdOpenBmcDbusInterfaces():
         if( self.stub is True):
             if powerLimitException is None:
                 print("set Power Limit Exception to default LogEventOnly")
+                self.powerLimitException="LogEventOnly"
             else:
                 print("setting PowerLimitException to {}".format(powerLimitException)) 
+                self.powerLimitException=powerLimitException
             sys.stdout.flush()
         else:
             # xg44 need to complete integration
@@ -491,10 +507,10 @@ class RdOpenBmcDbusInterfaces():
     def getBootSourceOverrideProperties(self):
         resp=dict()
         if( self.stub is True):
-            resp["BootSourceOverrideEnabled"]    = "Once"
-            resp["BootSourceOverrideTarget"]     = "Pxe"
-            resp["BootSourceOverrideMode"]       = "Legacy"
-            resp["UefiTargetBootSourceOverride"] = ""
+            resp["BootSourceOverrideEnabled"]    = self.bootSourceOverrideEnabled
+            resp["BootSourceOverrideTarget"]     = self.bootSourceOverrideTarget
+            resp["BootSourceOverrideMode"]       = self.bootSourceOverrideMode
+            resp["UefiTargetBootSourceOverride"] = self.uefiTargetBootSourceOverride
         else:
             resp["BootSourceOverrideEnabled"]    = "Once"     # xg44 need to finish integrating
             resp["BootSourceOverrideTarget"]     = "Pxe"      # xg44 need to finish integrating
@@ -509,11 +525,19 @@ class RdOpenBmcDbusInterfaces():
     #        bootProps={ "BootSourceOverrideEnabled": <value>, "BootSourceOverrideTarget": <value> }
     #        where <values> are specified above for these properties in getBootSourceOverrideProperties() method
     def setObmcBootSourceOverrideProperties(self,bootPropertiesDict):
+
         if( self.stub is True):
             if "BootSourceOverrideEnabled" in bootPropertiesDict:
+                self.bootSourceOverrideEnabled    = bootPropertiesDict["BootSourceOverrideEnabled"]
                 print("set System Boot Prop: {}".format(bootPropertiesDict["BootSourceOverrideEnabled"]))
             if "BootSourceOverrideTarget" in bootPropertiesDict:
+                self.bootSourceOverrideTarget    = bootPropertiesDict["BootSourceOverrideTarget"]
                 print("set System Boot Prop: {}".format(bootPropertiesDict["BootSourceOverrideTarget"]))
+            if "BootSourceOverrideMode" in bootPropertiesDict:
+                self.bootSourceOverrideMode    = bootPropertiesDict["BootSourceOverrideMode"]
+            if "UefiTargetBootSourceOverride" in bootPropertiesDict:
+                self.uefiTargetBootSourceOverride = bootPropertiesDict["UefiTargetBootSourceOverride"]
+
             sys.stdout.flush()
         else:
             #xg44 need to finish integrating
@@ -535,14 +559,17 @@ class RdOpenBmcDbusInterfaces():
                 # do a Hard Reset
                 print("Reset BMC: On")
                 sys.stdout.flush()
+                self.powerState="On"
             elif resetType == "ForceRestart":
                 # do a Hard Reset
                 print("Reset BMC: HARD")
                 sys.stdout.flush()
+                self.powerState="On"
             elif resetType == "GracefulRestart":
                 # do a graceful shutdown and then restart
                 print("Reset BMC: SOFT - Graceful")
                 sys.stdout.flush()
+                self.powerState="On"
             else:
                 return(-9) # resetType not supported
         else:

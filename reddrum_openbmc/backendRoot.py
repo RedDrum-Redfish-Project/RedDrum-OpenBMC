@@ -12,7 +12,7 @@ from .managersBackend  import RdManagersBackend
 from .systemsBackend   import RdSystemsBackend
 
 from .obmcDiscovery    import RdOpenBmcDiscovery
-from .oemFrontendUtils import DellESI_FrontendOemUtils
+from .oemFrontendUtils import FrontendOemUtils
 
 
 class RdBackendRoot():
@@ -21,7 +21,7 @@ class RdBackendRoot():
         self.version = "0.9"
         self.backendStatus=0
         self.discoveryState = 0
-        self.oemUtils=DellESI_FrontendOemUtils(rdr)
+        self.oemUtils=FrontendOemUtils(rdr)
         self.rdBeIdConstructionRule = "Monolythic"
         #   valid rdBeIdConstructionRule values are:  "Monolythic", "Dss9000", "Aggregator"
 

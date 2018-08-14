@@ -11,25 +11,34 @@
 
 import re
 
-class DellESI_FrontendOemUtils():
+class FrontendOemUtils():
     def __init__(self,rdr):
         self.rdr=rdr
+        self.dellEsiUtils=self.DellESI_FrontendOemUtils(rdr)
+        # enter other company/group oem utilities here
 
-    def rsdLocation(self, chassid):
-        idRule = self.rdr.backend.rdBeIdConstructionRule
-        #   valid rdBeIdConstructionRule values are:  "Monolythic", "Dss9000", "Aggregator"
-        chas=None
-        rid=None
-        if(idRule=="Dss9000"):
-            pass
-        elif (idRule=="Monolythic"):
-            rid=chassid
-            parent=None
-        elif (idRule=="Aggregator"):
-            rid=chassid
-            parent=None
-            if chassid in self.rdr.root.chassis.chassisDb:
-                if "ContainedBy" in self.rdr.root.chassis.chassisDb[chassid]:
-                    parent = self.rdr.root.chassis.chassisDb[chassid]["ContainedBy"]
-        return( rid, parent)
+
+    class DellESI_FrontendOemUtils():
+        def __init__(self,rdr):
+            self.rdr=rdr
+
+        def rsdLocation(self, chassid):
+            idRule = self.rdr.backend.rdBeIdConstructionRule
+            #   valid rdBeIdConstructionRule values are:  "Monolythic", "Dss9000", "Aggregator"
+            chas=None
+            rid=None
+            if(idRule=="Dss9000"):
+                pass
+            elif (idRule=="Monolythic"):
+                rid=chassid
+                parent=None
+            elif (idRule=="Aggregator"):
+                rid=chassid
+                parent=None
+                if chassid in self.rdr.root.chassis.chassisDb:
+                    if "ContainedBy" in self.rdr.root.chassis.chassisDb[chassid]:
+                        parent = self.rdr.root.chassis.chassisDb[chassid]["ContainedBy"]
+            return( rid, parent)
+
+    # create class for other oem utils here
 
